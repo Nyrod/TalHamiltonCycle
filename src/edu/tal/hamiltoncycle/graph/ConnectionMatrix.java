@@ -1,5 +1,8 @@
 package edu.tal.hamiltoncycle.graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConnectionMatrix {
 
     private boolean[][] connectionMatrix;
@@ -28,6 +31,26 @@ public class ConnectionMatrix {
             connectionMatrix[node1][node2] = true;
             connectionMatrix[node2][node1] = true;
         }
+    }
+
+    public int getNodeDegree(int node) {
+        int degree = 0;
+        for(int i = 0; i < connectionMatrix.length; i++) {
+            if(connectionMatrix[node][i])
+                degree++;
+        }
+        return degree;
+    }
+
+    public List<Integer> getNotConnectedToNode(int node) {
+        List<Integer> connectedNodes = new ArrayList<>();
+        for(int i = 0; i < connectionMatrix.length; i++) {
+            if(i == node)
+                continue;
+            if(!haveConnection(node, i))
+                connectedNodes.add(i);
+        }
+        return connectedNodes;
     }
 
     public int getNodeNumber() {

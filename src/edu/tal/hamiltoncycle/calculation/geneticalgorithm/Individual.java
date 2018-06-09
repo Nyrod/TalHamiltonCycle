@@ -64,10 +64,17 @@ public class Individual {
 
     @Override
     public String toString() {
-        String geneString = "";
-        for (int i = 0; i < genes.length; i++) {
-            geneString += getGene(i);
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i< genes.length; i++) {
+            builder.append(genes[i]);
+            if(i < genes.length -1)
+                builder.append(" -> ");
         }
-        return geneString;
+        return builder.toString();
+//        String geneString = "";
+//        for (int i = 0; i < genes.length; i++) {
+//            geneString += getGene(i);
+//        }
+//        return geneString;
     }
 }

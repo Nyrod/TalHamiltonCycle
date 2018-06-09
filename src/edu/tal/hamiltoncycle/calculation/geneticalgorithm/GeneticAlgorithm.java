@@ -15,15 +15,19 @@ public class GeneticAlgorithm {
     public void execute(int populationSize, int generationNumber) {
         Population population = new Population(populationSize);
         int generationCount = 0;
-        while (population.getFittest().getFitness() != FitnessCalc.getSolution() && generationCount <= generationNumber) {
+        while (population.getFittest().getFitness() != FitnessCalc.getSolution() && generationCount < generationNumber) {
             generationCount++;
             System.out.println("Generation: " + generationCount + " Fittest: " + population.getFittest().getFitness());
             population = evolvePopulation(population);
         }
-        System.out.println("Solution found!");
-        System.out.println("Generation: " + generationCount);
-        System.out.println("Genes:");
-        System.out.println(population.getFittest());
+        if(population.getFittest().getFitness() == FitnessCalc.getSolution()) {
+            System.out.println("Solution found!");
+            System.out.println("Generation: " + generationCount);
+            System.out.println("Solution:");
+            System.out.println(population.getFittest());
+        } else {
+            System.out.println("Dont find solution");
+        }
 
     }
 

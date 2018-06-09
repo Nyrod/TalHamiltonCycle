@@ -22,7 +22,7 @@ public class BruteForce {
 
     private boolean checkIfPermutationIsHamiltonCycle() {
         int lastNode = currentPermutation.length - 1;
-        for(int i = 0; i < lastNode - 1; i++) {
+        for(int i = 0; i < lastNode; i++) {
             if(!connectionMatrix.haveConnection(currentPermutation[i], currentPermutation[i + 1]))
                 return false;
         }
@@ -58,7 +58,7 @@ public class BruteForce {
         for(int i = 0; i< currentPermutation.length; i++) {
             builder.append(currentPermutation[i]);
             if(i < currentPermutation.length -1)
-                builder.append(", ");
+                builder.append(" -> ");
         }
         System.out.println(builder.toString());
     }
