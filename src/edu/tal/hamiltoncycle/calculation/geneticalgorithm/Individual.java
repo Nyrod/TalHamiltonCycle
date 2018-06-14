@@ -30,6 +30,10 @@ public class Individual {
         this.fitness = 0;
     }
 
+    public int[] getGenes() {
+        return genes;
+    }
+
     public int getGene(int index) {
         return genes[index];
     }

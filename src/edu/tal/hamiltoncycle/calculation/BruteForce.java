@@ -1,26 +1,63 @@
 package edu.tal.hamiltoncycle.calculation;
 
 import edu.tal.hamiltoncycle.graph.ConnectionMatrix;
+import edu.tal.hamiltoncycle.statistics.ComputeComplexity;
+import edu.tal.hamiltoncycle.statistics.MemoryComplexity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BruteForce {
 
     private ConnectionMatrix connectionMatrix;
     private int[] currentPermutation;
+    private ComputeComplexity timer;
+    private MemoryComplexity memory;
 
-    public BruteForce(ConnectionMatrix connectionMatrix) {
+    public BruteForce(ConnectionMatrix connectionMatrix, ComputeComplexity computeComplexity, MemoryComplexity memory) {
         this.connectionMatrix = connectionMatrix;
         this.currentPermutation = new int[connectionMatrix.getNodeNumber()];
+        this.timer = computeComplexity;
+        this.memory = memory;
         setFirstPermutation();
     }
 
-    public void execute() {
+    public List<int[]> execute() {
+        timer.startTimer();
+        memory.addMemory((long) (connectionMatrix.getNodeNumber() * connectionMatrix.getNodeNumber()));
+
+        List<int[]> result = new ArrayList<>();
         while(getNextPermutation()) {
-            if(checkIfPermutationIsHamiltonCycle())
-                printCurrentPermutation();
+            if(checkIfPermutationIsHamiltonCycle()) {
+                result.add(currentPermutation);
+                //printCurrentPermutation();
+            }
         }
+
+        timer.stopTimer();
+        memory.nextExecution();
+
+        return result;
+    }
+
+    public void resetTimerSet() {
+        timer.resetTimeSet();
+    }
+
+    public Long getAverageComputeTime() {
+        return timer.getAverageTime();
+    }
+
+    public void resetMemorySet() {
+        memory.resetMemorySet();
+    }
+
+    public Long getAverageMemoryUsage() {
+        return this.memory.getAverageMemory();
     }
 
     private boolean checkIfPermutationIsHamiltonCycle() {
+        memory.addMemory((long) 1);
         int lastNode = currentPermutation.length - 1;
         for(int i = 0; i < lastNode; i++) {
             if(!connectionMatrix.haveConnection(currentPermutation[i], currentPermutation[i + 1]))
@@ -50,6 +87,7 @@ public class BruteForce {
             j--;
         }
 
+        memory.addMemory((long) 2);
         return true;
     }
 
@@ -67,6 +105,7 @@ public class BruteForce {
         int tmp = currentPermutation[i];
         currentPermutation[i] = currentPermutation[j];
         currentPermutation[j] = tmp;
+        memory.addMemory((long) 1);
     }
 
     private void setFirstPermutation() {
