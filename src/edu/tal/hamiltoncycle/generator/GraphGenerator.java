@@ -15,6 +15,8 @@ public class GraphGenerator {
 //    }
 //
     public static ConnectionMatrix generateGraph(int nodeNumber, int nodesDegree) {
+
+
         ConnectionMatrix connectionMatrix = new ConnectionMatrix(nodeNumber);
         if(nodeNumber <= nodesDegree + 1) {
             for(int i = 0; i < nodeNumber; i++) {
@@ -37,6 +39,11 @@ public class GraphGenerator {
                 }
             }
         }
+//        BruteForce bruteForce = new BruteForce(connectionMatrix, new ComputeComplexity(), new MemoryComplexity());
+//        List<int[]> result = bruteForce.execute();
+//        if(result.size() == 0) {
+//
+//        }
         return connectionMatrix;
     }
 }

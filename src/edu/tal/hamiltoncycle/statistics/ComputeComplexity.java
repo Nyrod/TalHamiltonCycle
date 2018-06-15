@@ -24,12 +24,12 @@ public class ComputeComplexity {
         this.execTimes = new ArrayList<>();
     }
 
-    public Long getAverageTime() {
-        Long sum = 0L;
+    public Double getAverageTime() {
+        Double sum = 0.0;
         for (Long time: execTimes) {
             sum += time;
         }
         if(execTimes.size() != 0) return sum/execTimes.size();
-        return 0L;
+        return 0.0;
     }
 }

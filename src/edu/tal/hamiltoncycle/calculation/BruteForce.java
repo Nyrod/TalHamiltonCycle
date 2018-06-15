@@ -24,8 +24,8 @@ public class BruteForce {
 
     public List<int[]> execute() {
         timer.startTimer();
-        memory.addMemory((long) (connectionMatrix.getNodeNumber() * connectionMatrix.getNodeNumber()));
-
+        memory.addMemory((connectionMatrix.getNodeNumber() * connectionMatrix.getNodeNumber()));
+        setFirstPermutation();
         List<int[]> result = new ArrayList<>();
         while(getNextPermutation()) {
             if(checkIfPermutationIsHamiltonCycle()) {
@@ -44,7 +44,7 @@ public class BruteForce {
         timer.resetTimeSet();
     }
 
-    public Long getAverageComputeTime() {
+    public Double getAverageComputeTime() {
         return timer.getAverageTime();
     }
 
@@ -52,12 +52,12 @@ public class BruteForce {
         memory.resetMemorySet();
     }
 
-    public Long getAverageMemoryUsage() {
+    public Integer getAverageMemoryUsage() {
         return this.memory.getAverageMemory();
     }
 
     private boolean checkIfPermutationIsHamiltonCycle() {
-        memory.addMemory((long) 1);
+        memory.addMemory(1);
         int lastNode = currentPermutation.length - 1;
         for(int i = 0; i < lastNode; i++) {
             if(!connectionMatrix.haveConnection(currentPermutation[i], currentPermutation[i + 1]))
@@ -87,7 +87,7 @@ public class BruteForce {
             j--;
         }
 
-        memory.addMemory((long) 2);
+        memory.addMemory(2);
         return true;
     }
 
@@ -105,7 +105,7 @@ public class BruteForce {
         int tmp = currentPermutation[i];
         currentPermutation[i] = currentPermutation[j];
         currentPermutation[j] = tmp;
-        memory.addMemory((long) 1);
+        memory.addMemory(1);
     }
 
     private void setFirstPermutation() {
